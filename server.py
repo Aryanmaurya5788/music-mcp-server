@@ -1,7 +1,11 @@
 from mcp.server.fastmcp import FastMCP
 import os
 
-mcp = FastMCP("Music Demo")
+mcp = FastMCP(
+    "Music Demo",
+    host="0.0.0.0",
+    port=int(os.environ.get("PORT", "10000")),
+)
 
 
 @mcp.tool()
@@ -23,9 +27,4 @@ def get_song_status() -> str:
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", "10000"))
-
-    mcp.settings.host = "0.0.0.0"
-    mcp.settings.port = port
-
     mcp.run(transport="streamable-http")
